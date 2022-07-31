@@ -1,0 +1,139 @@
+:root {
+  --dark-color: #111;
+  --light-color: #f3f3f3;
+  --medium-color: #bbb;
+  --border-color: #ddd;
+  --main-color: #0074D9;
+  --error-color: #FF4136;
+  --border-radius: 4px;
+  /* uso: background-color: var(--dark-color); */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: var(--dark-color);
+}
+
+div, button, img{
+  margin: 0;
+  padding: 0;
+}
+
+.game-board {
+  width: 80vw;
+  height: 500px;
+  border: 1px solid var(--dark-color);
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--main-color);
+}
+
+.game-menu__button{
+  background-color: rgba(182, 177, 177, .5);
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-menu__button button{
+  margin: 0;
+  padding: .4em 1em;
+  border: 0;
+  font-size: 32px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.game-menu__button p{
+  color: white;
+  font-size: 32px;
+}
+
+.game-menu__p{
+  display: none;
+}
+
+.score-container p{
+  color: white;
+  font-size: 25px;
+}
+
+.pipe {
+  position: absolute;
+  bottom: 0;
+  width: 80px;
+  right: -80px;
+  z-index: 3;
+}
+
+.pipe.pipe-animation{
+  animation: pipe-animation 2s infinite linear;
+  animation-play-state: paused;
+}
+
+.clouds{
+  position: absolute;
+  bottom: 60%;
+  width: 280px;
+  animation: clouds-animation 15s infinite linear;
+  z-index: 0;
+}
+
+.mario {
+  bottom: 0;
+  position: absolute;
+  width: 130px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  z-index: 1;
+}
+
+.mario.jump{
+  animation: mario-animation 900ms linear;
+}
+
+@keyframes mario-animation{
+  0%, 100%{
+    bottom: 0;
+  }
+
+  /* 20%, 80%{
+    bottom: 130px;
+  } */
+
+  40%, 50%{
+    bottom: 280px;
+  }
+}
+
+@keyframes pipe-animation{
+  from{
+    right: -80px;
+  }
+
+  to{
+    right: 100%;
+  }
+}
+
+@keyframes clouds-animation {
+  from{
+    right: -280px;
+  }
+
+  to{
+    right: 100%;
+  }
+}
