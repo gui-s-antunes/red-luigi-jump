@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/animation.ts":
-/*!**************************!*\
-  !*** ./src/animation.ts ***!
-  \**************************/
+/***/ "./src/classes/animation.ts":
+/*!**********************************!*\
+  !*** ./src/classes/animation.ts ***!
+  \**********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -30,10 +30,10 @@ exports.Animation = Animation;
 
 /***/ }),
 
-/***/ "./src/game.ts":
-/*!*********************!*\
-  !*** ./src/game.ts ***!
-  \*********************/
+/***/ "./src/classes/game.ts":
+/*!*****************************!*\
+  !*** ./src/classes/game.ts ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -144,10 +144,10 @@ exports.Game = Game;
 
 /***/ }),
 
-/***/ "./src/mario.ts":
-/*!**********************!*\
-  !*** ./src/mario.ts ***!
-  \**********************/
+/***/ "./src/classes/mario.ts":
+/*!******************************!*\
+  !*** ./src/classes/mario.ts ***!
+  \******************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -206,10 +206,10 @@ exports.Mario = Mario;
 
 /***/ }),
 
-/***/ "./src/menu.ts":
-/*!*********************!*\
-  !*** ./src/menu.ts ***!
-  \*********************/
+/***/ "./src/classes/menu.ts":
+/*!*****************************!*\
+  !*** ./src/classes/menu.ts ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -260,10 +260,10 @@ exports.Menu = Menu;
 
 /***/ }),
 
-/***/ "./src/pipe.ts":
-/*!*********************!*\
-  !*** ./src/pipe.ts ***!
-  \*********************/
+/***/ "./src/classes/pipe.ts":
+/*!*****************************!*\
+  !*** ./src/classes/pipe.ts ***!
+  \*****************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -301,10 +301,10 @@ exports.Pipe = Pipe;
 
 /***/ }),
 
-/***/ "./src/timer.ts":
-/*!**********************!*\
-  !*** ./src/timer.ts ***!
-  \**********************/
+/***/ "./src/classes/timer.ts":
+/*!******************************!*\
+  !*** ./src/classes/timer.ts ***!
+  \******************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -380,12 +380,12 @@ var exports = __webpack_exports__;
   \*********************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const game_1 = __webpack_require__(/*! ./game */ "./src/game.ts");
-const menu_1 = __webpack_require__(/*! ./menu */ "./src/menu.ts");
-const mario_1 = __webpack_require__(/*! ./mario */ "./src/mario.ts");
-const pipe_1 = __webpack_require__(/*! ./pipe */ "./src/pipe.ts");
-const animation_1 = __webpack_require__(/*! ./animation */ "./src/animation.ts");
-const timer_1 = __webpack_require__(/*! ./timer */ "./src/timer.ts");
+const game_1 = __webpack_require__(/*! ./classes/game */ "./src/classes/game.ts");
+const menu_1 = __webpack_require__(/*! ./classes/menu */ "./src/classes/menu.ts");
+const mario_1 = __webpack_require__(/*! ./classes/mario */ "./src/classes/mario.ts");
+const pipe_1 = __webpack_require__(/*! ./classes/pipe */ "./src/classes/pipe.ts");
+const animation_1 = __webpack_require__(/*! ./classes/animation */ "./src/classes/animation.ts");
+const timer_1 = __webpack_require__(/*! ./classes/timer */ "./src/classes/timer.ts");
 const animation = new animation_1.Animation();
 const startGameTimer = new timer_1.TimerTimeout();
 const marioJumpTimer = new timer_1.TimerTimeout();
