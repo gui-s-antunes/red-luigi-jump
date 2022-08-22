@@ -2,143 +2,52 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/controllers.ts":
-/*!****************************!*\
-  !*** ./src/controllers.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "./src/animation.ts":
+/*!**************************!*\
+  !*** ./src/animation.ts ***!
+  \**************************/
+/***/ ((__unused_webpack_module, exports) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.setJump = exports.setFinalScore = exports.setTopScore = exports.compareFinalScoreToTopScore = exports.getTopScore = exports.setMarioGameOverSprite = exports.stopAnimations = exports.clearIntervalTimeOut = exports.stopGame = exports.startGame = exports.switchPlayButton = exports.startInterval = exports.resetPipe = exports.resetMario = exports.pipePosition = exports.marioPosition = exports.mario = exports.timeoutMarioController = exports.intervalMarioChecker = exports.intervalController = exports.topScore = exports.scoreP = exports.playTopScore = exports.playScore = exports.playButton = exports.pipeSprite = exports.marioSprite = void 0;
-__webpack_require__(/*! ./game */ "./src/game.ts");
-const game_1 = __webpack_require__(/*! ./game */ "./src/game.ts");
-exports.marioSprite = document.querySelector('.mario');
-exports.pipeSprite = document.querySelector('.pipe');
-exports.playButton = document.querySelector('.start');
-exports.playScore = document.querySelector('.game-menu__p');
-exports.playTopScore = document.querySelector('.game-menu__p-top-score');
-exports.scoreP = document.querySelector('.score');
-exports.topScore = getTopScore();
-exports.intervalController = null;
-exports.intervalMarioChecker = null;
-exports.timeoutMarioController = null;
-exports.mario = new game_1.Mario(0, 0);
-exports.marioPosition = getElementPosition(exports.marioSprite);
-exports.pipePosition = getElementPosition(exports.pipeSprite);
-document.addEventListener('keydown', (event) => {
-    if (exports.marioSprite.classList.contains('jump'))
-        return;
-    if (event.key === ' ' || event.key === 'ArrowUp')
-        setJump();
-});
-exports.playButton.addEventListener('click', () => {
-    resetPipe(exports.pipeSprite);
-    resetMario(exports.marioSprite);
-    switchPlayButton();
-    startGame();
-    exports.mario.startTime = +new Date();
-    startInterval();
-});
-function resetMario(mario) {
-    mario.classList.remove('jump');
-    mario.src = './assets/images/mario_gif_cortado.gif';
-    mario.style.animationPlayState = 'running';
+exports.Animation = void 0;
+class Animation {
+    removeAnimationProperty(sprite) {
+        sprite.classList.remove('animation');
+    }
+    addAnimationProperty(sprite) {
+        sprite.classList.add('animation');
+    }
+    runAnimation(sprite) {
+        sprite.style.animationPlayState = 'running';
+    }
+    pauseAnimation(sprite) {
+        sprite.style.animationPlayState = 'paused';
+    }
 }
-exports.resetMario = resetMario;
-function resetPipe(pipe) {
-    pipe.classList.remove('pipe-animation');
+exports.Animation = Animation;
+
+
+/***/ }),
+
+/***/ "./src/clouds.ts":
+/*!***********************!*\
+  !*** ./src/clouds.ts ***!
+  \***********************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Clouds = void 0;
+class Clouds {
+    constructor(_clouds) {
+        this._clouds = _clouds;
+    }
+    get clouds() {
+        return this._clouds;
+    }
 }
-exports.resetPipe = resetPipe;
-function startInterval() {
-    exports.intervalController = setInterval(() => {
-        exports.mario.setPoints();
-        exports.scoreP.textContent = `Score: ${exports.mario.points}`;
-    }, 50);
-}
-exports.startInterval = startInterval;
-function switchPlayButton() {
-    const playbuttonDiv = exports.playButton.parentElement;
-    playbuttonDiv.style.display =
-        window.getComputedStyle(playbuttonDiv, null).display === 'flex'
-            ? 'none'
-            : 'flex';
-}
-exports.switchPlayButton = switchPlayButton;
-function startGame() {
-    exports.playScore.style.display = 'block';
-    exports.pipeSprite.classList.add('pipe-animation');
-    exports.pipeSprite.style.animationPlayState = 'running';
-    exports.intervalMarioChecker = setInterval(() => {
-        exports.marioPosition = getElementPosition(exports.marioSprite);
-        exports.pipePosition = getElementPosition(exports.pipeSprite);
-        if (!isMarioOnDanger())
-            return;
-        if (isPipeUnderMario())
-            stopGame();
-    }, 15);
-}
-exports.startGame = startGame;
-function stopGame() {
-    clearIntervalTimeOut('timeout', exports.timeoutMarioController);
-    clearIntervalTimeOut('interval', exports.intervalController, exports.intervalMarioChecker);
-    stopAnimations(exports.pipeSprite, exports.marioSprite);
-    setMarioGameOverSprite('./assets/images/game-over.png');
-    setFinalScore();
-    compareFinalScoreToTopScore(exports.mario.points);
-    setTopScore(exports.playTopScore, exports.topScore);
-    switchPlayButton();
-}
-exports.stopGame = stopGame;
-function clearIntervalTimeOut(clearType, ...args) {
-    args.forEach((timer) => clearType === 'interval' ? clearInterval(timer) : clearTimeout(timer));
-}
-exports.clearIntervalTimeOut = clearIntervalTimeOut;
-function stopAnimations(...sprites) {
-    sprites.forEach((sprite) => (sprite.style.animationPlayState = 'paused'));
-}
-exports.stopAnimations = stopAnimations;
-function setMarioGameOverSprite(path) {
-    exports.marioSprite.src = path;
-}
-exports.setMarioGameOverSprite = setMarioGameOverSprite;
-function getTopScore() {
-    var _a;
-    return (_a = localStorage['mario_top_score']) !== null && _a !== void 0 ? _a : 0;
-}
-exports.getTopScore = getTopScore;
-function compareFinalScoreToTopScore(finalScore) {
-    if (finalScore > exports.topScore)
-        exports.topScore = finalScore;
-    exports.topScore = finalScore > exports.topScore ? finalScore : exports.topScore;
-    localStorage['mario_top_score'] = exports.topScore;
-}
-exports.compareFinalScoreToTopScore = compareFinalScoreToTopScore;
-function setTopScore(domTopScore, topScore) {
-    domTopScore.textContent = `Top Score: ${topScore}`;
-}
-exports.setTopScore = setTopScore;
-function setFinalScore() {
-    exports.playScore.textContent = `Final Score: ${exports.mario.points}`;
-}
-exports.setFinalScore = setFinalScore;
-function setJump() {
-    exports.marioSprite.classList.add('jump');
-    exports.timeoutMarioController = setTimeout(() => {
-        exports.marioSprite.classList.remove('jump');
-    }, 900);
-}
-exports.setJump = setJump;
-function getElementPosition(element) {
-    return element.getBoundingClientRect();
-}
-function isMarioOnDanger() {
-    return exports.marioPosition.bottom >= exports.pipePosition.top;
-}
-function isPipeUnderMario() {
-    return (exports.pipePosition.left <= exports.marioPosition.right &&
-        exports.pipePosition.right >= (exports.marioPosition.right + exports.marioPosition.left) / 2);
-}
+exports.Clouds = Clouds;
 
 
 /***/ }),
@@ -151,49 +60,333 @@ function isPipeUnderMario() {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Mario = exports.Points = void 0;
-class Points {
-    constructor(_points) {
-        this._points = _points;
-    }
-    set points(newPoints) {
-        this._points = newPoints;
+exports.Game = void 0;
+class Game {
+    constructor(mario, pipe, _scoreGame, gameTimer) {
+        this.mario = mario;
+        this.pipe = pipe;
+        this._scoreGame = _scoreGame;
+        this.gameTimer = gameTimer;
+        this._points = 0;
+        this._gameTimestamp = 0;
+        this._menu = null;
+        this._topScore = this.getTopScoreFromBrowser();
     }
     get points() {
         return this._points;
     }
+    set points(points) {
+        this._points = points - this._gameTimestamp;
+    }
+    get topScore() {
+        return this._topScore;
+    }
+    set topScore(topScore) {
+        this.topScore = topScore;
+    }
+    set menu(menu) {
+        this._menu = menu;
+    }
+    getMenu() {
+        if (this._menu !== null)
+            return this._menu;
+    }
+    startTimestamp() {
+        this._gameTimestamp = +new Date();
+    }
+    hiddenGameScore() {
+        this._scoreGame.style.display = 'none';
+    }
+    showGameScore() {
+        this._scoreGame.style.display = 'block';
+    }
+    updateGameScore() {
+        this.points = +new Date();
+        this._scoreGame.textContent = `Score: ${this.points}`;
+    }
+    getTopScoreFromBrowser() {
+        var _a;
+        return (_a = localStorage['mario_top_score']) !== null && _a !== void 0 ? _a : 0;
+    }
+    updateTopScore() {
+        localStorage['mario_top_score'] = this.topScore;
+    }
+    compareNewScoreWithTopScore() {
+        if (!this.isNewScoreBetter())
+            return;
+        this._topScore = this.points;
+        this.updateTopScore();
+    }
+    isNewScoreBetter() {
+        return this.points > this.topScore;
+    }
+    startGame() {
+        this.showGameScore();
+        this.pipe.addPropertyAnimation();
+        this.pipe.runPipeAnimation();
+        this.startTimestamp();
+        this.gameTimer.setTimer(this, 'verifyMarioDanger', 15);
+    }
+    stopGame() {
+        var _a;
+        this.stopIntervals();
+        this.stopSpritesAnimation();
+        this.mario.changeMarioSpriteImage('./assets/images/game-over.png');
+        this.compareNewScoreWithTopScore();
+        (_a = this._menu) === null || _a === void 0 ? void 0 : _a.gameFinished();
+    }
+    stopIntervals() {
+        this.gameTimer.clearTimer();
+        this.mario.stopMarioInterval();
+    }
+    stopSpritesAnimation() {
+        this.mario.pauseMarioAnimation();
+        this.pipe.pausePipeAnimation();
+    }
+    verifyMarioDanger() {
+        this.updateGameScore();
+        const marioPosition = this.mario.getMarioPosition();
+        const pipePosition = this.pipe.getPipePosition();
+        if (!this.isMarioOnDanger(marioPosition, pipePosition))
+            return;
+        if (!this.isPipeUnderMario(marioPosition, pipePosition))
+            return;
+        this.stopGame();
+    }
+    isMarioOnDanger(marioPosition, pipePosition) {
+        return marioPosition.bottom >= pipePosition.top;
+    }
+    isPipeUnderMario(marioPosition, pipePosition) {
+        return (pipePosition.left <= marioPosition.right &&
+            pipePosition.right >= (marioPosition.right + marioPosition.left) / 2);
+    }
 }
-exports.Points = Points;
+exports.Game = Game;
+
+
+/***/ }),
+
+/***/ "./src/listeners.ts":
+/*!**************************!*\
+  !*** ./src/listeners.ts ***!
+  \**************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MarioJumpListener = void 0;
+class MarioJumpListener {
+    constructor(_mario) {
+        this._mario = _mario;
+        document.addEventListener('keydown', this.jumpController.bind(this));
+    }
+    get mario() {
+        return this._mario;
+    }
+    jumpController(event) {
+        if (event.key !== ' ' && event.key !== 'ArrowUp')
+            return;
+        if (this.mario.marioContainsJump())
+            return;
+        this.addMarioJumpClass();
+    }
+    addMarioJumpClass() {
+        this.mario.addMarioJump();
+    }
+}
+exports.MarioJumpListener = MarioJumpListener;
+
+
+/***/ }),
+
+/***/ "./src/mario.ts":
+/*!**********************!*\
+  !*** ./src/mario.ts ***!
+  \**********************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Mario = void 0;
 class Mario {
-    constructor(_startTime, _endTime) {
-        this._startTime = _startTime;
-        this._endTime = _endTime;
-        this._points = new Points(0);
+    constructor(_marioSprite, animation, marioJumpTimer) {
+        this._marioSprite = _marioSprite;
+        this.animation = animation;
+        this.marioJumpTimer = marioJumpTimer;
     }
-    set endTime(time) {
-        this._endTime = time;
+    get marioSprite() {
+        return this._marioSprite;
     }
-    get endTime() {
-        return this._endTime;
+    addMarioJump() {
+        this.marioJumpTimer.setTimer(this, 'removeMarioJump', 900);
+        this.animation.addAnimationProperty(this.marioSprite);
     }
-    set startTime(time) {
-        this._startTime = time;
+    removeMarioJump() {
+        this.animation.removeAnimationProperty(this.marioSprite);
     }
-    get startTime() {
-        return this._startTime;
+    runMarioAnimation() {
+        this.animation.runAnimation(this.marioSprite);
     }
-    calcPoints() {
-        return this.endTime - this.startTime;
+    pauseMarioAnimation() {
+        this.animation.pauseAnimation(this.marioSprite);
     }
-    setPoints() {
-        this._endTime = +new Date();
-        this._points.points = this.calcPoints();
+    changeMarioSpriteImage(imageSrc) {
+        this._marioSprite.src = imageSrc;
     }
-    get points() {
-        return this._points.points;
+    marioContainsJump() {
+        return this.marioSprite.classList.contains('jump');
+    }
+    resetMario() {
+        this.removeMarioJump();
+        this.changeMarioSpriteImage('./assets/images/mario_gif_cortado.gif');
+        this.runMarioAnimation();
+    }
+    getMarioPosition() {
+        return this.marioSprite.getBoundingClientRect();
+    }
+    stopMarioInterval() {
+        this.marioJumpTimer.clearTimer();
     }
 }
 exports.Mario = Mario;
+
+
+/***/ }),
+
+/***/ "./src/menu.ts":
+/*!*********************!*\
+  !*** ./src/menu.ts ***!
+  \*********************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Menu = void 0;
+class Menu {
+    constructor(_playButton, _scoreP, _topScoreP, game, mario, pipe, startTimer) {
+        this._playButton = _playButton;
+        this._scoreP = _scoreP;
+        this._topScoreP = _topScoreP;
+        this.game = game;
+        this.mario = mario;
+        this.pipe = pipe;
+        this.startTimer = startTimer;
+        this._playButtonDiv = this._playButton.parentElement;
+        this._playButton.addEventListener('click', this.playButtonPressed.bind(this));
+    }
+    hiddenMenu() {
+        this._playButtonDiv.style.display = 'none';
+    }
+    showMenu() {
+        this._playButtonDiv.style.display = 'flex';
+    }
+    showMenuScore() {
+        this._scoreP.style.display = 'block';
+    }
+    playButtonPressed() {
+        this.pipe.resetPipe();
+        this.mario.resetMario();
+        this.hiddenMenu();
+        this.startTimer.setTimer(this.game, 'startGame', 10);
+    }
+    gameFinished() {
+        this.showMenu();
+        this.setScore();
+        this.setTopScore();
+        this.showMenuScore();
+    }
+    setTopScore() {
+        this._topScoreP.textContent = `Top Score: ${this.game.topScore}`;
+    }
+    setScore() {
+        this._scoreP.textContent = `Score: ${this.game.points}`;
+    }
+}
+exports.Menu = Menu;
+
+
+/***/ }),
+
+/***/ "./src/pipe.ts":
+/*!*********************!*\
+  !*** ./src/pipe.ts ***!
+  \*********************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Pipe = void 0;
+class Pipe {
+    constructor(_pipeSprite, animation) {
+        this._pipeSprite = _pipeSprite;
+        this.animation = animation;
+    }
+    stopPipeAnimation() {
+        throw new Error('Method not implemented.');
+    }
+    get pipeSprite() {
+        return this._pipeSprite;
+    }
+    resetPipe() {
+        this.animation.removeAnimationProperty(this.pipeSprite);
+    }
+    addPropertyAnimation() {
+        this.animation.addAnimationProperty(this.pipeSprite);
+    }
+    runPipeAnimation() {
+        this.animation.runAnimation(this.pipeSprite);
+    }
+    pausePipeAnimation() {
+        this.animation.pauseAnimation(this.pipeSprite);
+    }
+    getPipePosition() {
+        return this.pipeSprite.getBoundingClientRect();
+    }
+}
+exports.Pipe = Pipe;
+
+
+/***/ }),
+
+/***/ "./src/timer.ts":
+/*!**********************!*\
+  !*** ./src/timer.ts ***!
+  \**********************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.TimerTimeout = exports.TimerInterval = void 0;
+class TimerInterval {
+    constructor() {
+        this._timer = null;
+    }
+    setTimer(obj, objMethod, milliseconds) {
+        this._timer = setInterval(() => {
+            obj[objMethod]();
+        }, milliseconds);
+    }
+    clearTimer() {
+        if (this._timer)
+            clearInterval(this._timer);
+    }
+}
+exports.TimerInterval = TimerInterval;
+class TimerTimeout {
+    constructor() {
+        this._timer = null;
+    }
+    setTimer(obj, objMethod, milliseconds) {
+        this._timer = setTimeout(() => {
+            obj[objMethod]();
+        }, milliseconds);
+    }
+    clearTimer() {
+        if (this._timer)
+            clearTimeout(this._timer);
+    }
+}
+exports.TimerTimeout = TimerTimeout;
 
 
 /***/ })
@@ -229,14 +422,31 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
+/*!*********************!*\
+  !*** ./src/main.ts ***!
+  \*********************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__webpack_require__(/*! ./controllers */ "./src/controllers.ts");
-const controllers_1 = __webpack_require__(/*! ./controllers */ "./src/controllers.ts");
-(0, controllers_1.setTopScore)(controllers_1.playTopScore, controllers_1.topScore);
+const clouds_1 = __webpack_require__(/*! ./clouds */ "./src/clouds.ts");
+const game_1 = __webpack_require__(/*! ./game */ "./src/game.ts");
+const menu_1 = __webpack_require__(/*! ./menu */ "./src/menu.ts");
+const mario_1 = __webpack_require__(/*! ./mario */ "./src/mario.ts");
+const pipe_1 = __webpack_require__(/*! ./pipe */ "./src/pipe.ts");
+const animation_1 = __webpack_require__(/*! ./animation */ "./src/animation.ts");
+const timer_1 = __webpack_require__(/*! ./timer */ "./src/timer.ts");
+const listeners_1 = __webpack_require__(/*! ./listeners */ "./src/listeners.ts");
+const animation = new animation_1.Animation();
+const startGameTimer = new timer_1.TimerTimeout();
+const marioJumpTimer = new timer_1.TimerTimeout();
+const gameTimer = new timer_1.TimerInterval();
+const mario = new mario_1.Mario(document.querySelector('.mario'), animation, marioJumpTimer);
+const pipe = new pipe_1.Pipe(document.querySelector('.pipe'), animation);
+const clouds = new clouds_1.Clouds(document.querySelector('.clouds'));
+const marioListener = new listeners_1.MarioJumpListener(mario);
+const game = new game_1.Game(mario, pipe, document.querySelector('.score'), gameTimer);
+const menu = new menu_1.Menu(document.querySelector('.start'), document.querySelector('.game-menu__p'), document.querySelector('.game-menu__p-top-score'), game, mario, pipe, startGameTimer);
+menu.setTopScore();
+game.menu = menu;
 
 })();
 

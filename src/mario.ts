@@ -15,7 +15,7 @@ export class Mario implements MarioProtocol {
 
   addMarioJump(): void {
     // this._marioSprite.classList.add('jump');
-    this.marioJumpTimer.setTimer(this.removeMarioJump, 900);
+    this.marioJumpTimer.setTimer(this, 'removeMarioJump', 900);
     this.animation.addAnimationProperty(this.marioSprite); // agora é animation todas as animações
   }
 

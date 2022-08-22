@@ -12,6 +12,7 @@ const animation = new Animation();
 
 // timers
 
+const startGameTimer = new TimerTimeout(); // to reset all sprites before game start
 const marioJumpTimer = new TimerTimeout();
 const gameTimer = new TimerInterval();
 
@@ -51,6 +52,8 @@ const menu = new Menu(
   game,
   mario,
   pipe,
+  startGameTimer,
 );
+menu.setTopScore();
 
 game.menu = menu;

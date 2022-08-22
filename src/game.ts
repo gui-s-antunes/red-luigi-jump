@@ -25,7 +25,8 @@ export class Game implements GameProtocol {
   }
 
   set points(points: number) {
-    this.points = points - this._gameTimestamp;
+    this._points = points - this._gameTimestamp;
+    // this._points = 5;
   }
 
   get topScore(): number {
@@ -65,6 +66,20 @@ export class Game implements GameProtocol {
     return localStorage['mario_top_score'] ?? 0;
   }
 
+  updateTopScore(): void {
+    localStorage['mario_top_score'] = this.topScore;
+  }
+
+  compareNewScoreWithTopScore(): void {
+    if (!this.isNewScoreBetter()) return;
+    this._topScore = this.points;
+    this.updateTopScore();
+  }
+
+  isNewScoreBetter(): boolean {
+    return this.points > this.topScore;
+  }
+
   startGame(): void {
     // score que fica no canto fica block e começa a contar (interval)
     // adiciona classe 'pipe-animation' que agora é animation ao pipe e animation fica running
@@ -72,7 +87,7 @@ export class Game implements GameProtocol {
     this.pipe.addPropertyAnimation();
     this.pipe.runPipeAnimation();
     this.startTimestamp();
-    this.gameTimer.setTimer(this.verifyMarioDanger, 15);
+    this.gameTimer.setTimer(this, 'verifyMarioDanger', 15);
   }
 
   stopGame(): void {
@@ -80,6 +95,8 @@ export class Game implements GameProtocol {
     this.stopSpritesAnimation();
 
     this.mario.changeMarioSpriteImage('./assets/images/game-over.png');
+
+    this.compareNewScoreWithTopScore();
 
     this._menu?.gameFinished();
   }

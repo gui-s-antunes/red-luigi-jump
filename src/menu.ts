@@ -1,6 +1,7 @@
 import { GameProtocol } from './interfaces/game-protocol';
 import { MarioProtocol } from './interfaces/mario-protocol';
 import { PipeProtocol } from './interfaces/pipe-protocol';
+import { TimerProtocol } from './interfaces/timer-protocol';
 
 export class Menu {
   private _playButtonDiv: HTMLDivElement;
@@ -12,6 +13,7 @@ export class Menu {
     private readonly game: GameProtocol,
     private readonly mario: MarioProtocol,
     private readonly pipe: PipeProtocol,
+    private readonly startTimer: TimerProtocol,
   ) {
     this._playButtonDiv = this._playButton.parentElement as HTMLDivElement;
     this._playButton.addEventListener(
@@ -33,16 +35,18 @@ export class Menu {
   }
 
   playButtonPressed(): void {
-    this.mario.resetMario();
     this.pipe.resetPipe();
+    this.mario.resetMario();
     this.hiddenMenu();
-    this.game.startGame();
+    // this.game.startGame();
+    this.startTimer.setTimer(this.game, 'startGame', 10);
   }
 
   gameFinished(): void {
     this.showMenu();
     this.setScore();
     this.setTopScore();
+    this.showMenuScore();
   }
 
   setTopScore(): void {
