@@ -28,13 +28,13 @@ const pipe = new Pipe(
   animation,
 );
 
-const clouds = new Clouds(
-  document.querySelector('.clouds') as HTMLImageElement,
-);
+// const clouds = new Clouds(
+//   document.querySelector('.clouds') as HTMLImageElement,
+// );
 
 // Listeners
 
-const marioListener = new MarioJumpListener(mario);
+// const marioListener = new MarioJumpListener(mario);
 
 // Game
 const game = new Game(
@@ -42,7 +42,7 @@ const game = new Game(
   pipe,
   document.querySelector('.score') as HTMLParagraphElement,
   gameTimer,
-); // tirar menu, o game fará a pontuação do lado!
+);
 
 // HUD
 const menu = new Menu(

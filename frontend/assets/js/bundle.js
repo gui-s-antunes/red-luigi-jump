@@ -30,28 +30,6 @@ exports.Animation = Animation;
 
 /***/ }),
 
-/***/ "./src/clouds.ts":
-/*!***********************!*\
-  !*** ./src/clouds.ts ***!
-  \***********************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Clouds = void 0;
-class Clouds {
-    constructor(_clouds) {
-        this._clouds = _clouds;
-    }
-    get clouds() {
-        return this._clouds;
-    }
-}
-exports.Clouds = Clouds;
-
-
-/***/ }),
-
 /***/ "./src/game.ts":
 /*!*********************!*\
   !*** ./src/game.ts ***!
@@ -166,39 +144,6 @@ exports.Game = Game;
 
 /***/ }),
 
-/***/ "./src/listeners.ts":
-/*!**************************!*\
-  !*** ./src/listeners.ts ***!
-  \**************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.MarioJumpListener = void 0;
-class MarioJumpListener {
-    constructor(_mario) {
-        this._mario = _mario;
-        document.addEventListener('keydown', this.jumpController.bind(this));
-    }
-    get mario() {
-        return this._mario;
-    }
-    jumpController(event) {
-        if (event.key !== ' ' && event.key !== 'ArrowUp')
-            return;
-        if (this.mario.marioContainsJump())
-            return;
-        this.addMarioJumpClass();
-    }
-    addMarioJumpClass() {
-        this.mario.addMarioJump();
-    }
-}
-exports.MarioJumpListener = MarioJumpListener;
-
-
-/***/ }),
-
 /***/ "./src/mario.ts":
 /*!**********************!*\
   !*** ./src/mario.ts ***!
@@ -213,9 +158,17 @@ class Mario {
         this._marioSprite = _marioSprite;
         this.animation = animation;
         this.marioJumpTimer = marioJumpTimer;
+        document.addEventListener('keydown', this.jumpController.bind(this));
     }
     get marioSprite() {
         return this._marioSprite;
+    }
+    jumpController(event) {
+        if (event.key !== ' ' && event.key !== 'ArrowUp')
+            return;
+        if (this.marioContainsJump())
+            return;
+        this.addMarioJump();
     }
     addMarioJump() {
         this.marioJumpTimer.setTimer(this, 'removeMarioJump', 900);
@@ -427,22 +380,18 @@ var exports = __webpack_exports__;
   \*********************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const clouds_1 = __webpack_require__(/*! ./clouds */ "./src/clouds.ts");
 const game_1 = __webpack_require__(/*! ./game */ "./src/game.ts");
 const menu_1 = __webpack_require__(/*! ./menu */ "./src/menu.ts");
 const mario_1 = __webpack_require__(/*! ./mario */ "./src/mario.ts");
 const pipe_1 = __webpack_require__(/*! ./pipe */ "./src/pipe.ts");
 const animation_1 = __webpack_require__(/*! ./animation */ "./src/animation.ts");
 const timer_1 = __webpack_require__(/*! ./timer */ "./src/timer.ts");
-const listeners_1 = __webpack_require__(/*! ./listeners */ "./src/listeners.ts");
 const animation = new animation_1.Animation();
 const startGameTimer = new timer_1.TimerTimeout();
 const marioJumpTimer = new timer_1.TimerTimeout();
 const gameTimer = new timer_1.TimerInterval();
 const mario = new mario_1.Mario(document.querySelector('.mario'), animation, marioJumpTimer);
 const pipe = new pipe_1.Pipe(document.querySelector('.pipe'), animation);
-const clouds = new clouds_1.Clouds(document.querySelector('.clouds'));
-const marioListener = new listeners_1.MarioJumpListener(mario);
 const game = new game_1.Game(mario, pipe, document.querySelector('.score'), gameTimer);
 const menu = new menu_1.Menu(document.querySelector('.start'), document.querySelector('.game-menu__p'), document.querySelector('.game-menu__p-top-score'), game, mario, pipe, startGameTimer);
 menu.setTopScore();

@@ -7,10 +7,19 @@ export class Mario implements MarioProtocol {
     private readonly _marioSprite: HTMLImageElement,
     private readonly animation: AnimationProtocol,
     private readonly marioJumpTimer: TimerProtocol,
-  ) {}
+  ) {
+    document.addEventListener('keydown', this.jumpController.bind(this));
+  }
 
   get marioSprite(): HTMLImageElement {
     return this._marioSprite;
+  }
+
+  jumpController(event: KeyboardEvent): void {
+    if (event.key !== ' ' && event.key !== 'ArrowUp') return;
+    if (this.marioContainsJump()) return;
+
+    this.addMarioJump();
   }
 
   addMarioJump(): void {

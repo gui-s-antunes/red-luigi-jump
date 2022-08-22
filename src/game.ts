@@ -3,7 +3,6 @@ import { MarioProtocol } from './interfaces/mario-protocol';
 import { MenuProtocol } from './interfaces/menu-protocol';
 import { PipeProtocol } from './interfaces/pipe-protocol';
 import { TimerProtocol } from './interfaces/timer-protocol';
-import { Menu } from './menu';
 
 export class Game implements GameProtocol {
   private _topScore: number;
@@ -26,7 +25,6 @@ export class Game implements GameProtocol {
 
   set points(points: number) {
     this._points = points - this._gameTimestamp;
-    // this._points = 5;
   }
 
   get topScore(): number {
@@ -81,8 +79,6 @@ export class Game implements GameProtocol {
   }
 
   startGame(): void {
-    // score que fica no canto fica block e começa a contar (interval)
-    // adiciona classe 'pipe-animation' que agora é animation ao pipe e animation fica running
     this.showGameScore();
     this.pipe.addPropertyAnimation();
     this.pipe.runPipeAnimation();
@@ -112,7 +108,6 @@ export class Game implements GameProtocol {
   }
 
   verifyMarioDanger(): void {
-    // falta envolver o timer do mario aqui também, que é atualizar pontos e mostrar pontos do _scoreGame
     this.updateGameScore();
 
     const marioPosition = this.mario.getMarioPosition();

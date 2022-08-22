@@ -11,14 +11,12 @@ export class MarioJumpListener {
 
   jumpController(event: KeyboardEvent): void {
     if (event.key !== ' ' && event.key !== 'ArrowUp') return;
-    // if (this.marioContainsJump()) return;
     if (this.mario.marioContainsJump()) return;
 
     this.addMarioJumpClass();
   }
 
   addMarioJumpClass(): void {
-    // fazer timer para isso, add um timer.ts e faz o timer lá, adiciona o protocol dele no constructor e usa na classe aqui
     this.mario.addMarioJump();
   }
 }
