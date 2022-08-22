@@ -77,7 +77,12 @@ div, button, img{
   z-index: 3;
 }
 
-.pipe.pipe-animation{
+/* .pipe.pipe-animation{
+  animation: pipe-animation 2s infinite linear;
+  animation-play-state: paused;
+} */
+
+.pipe.animation{
   animation: pipe-animation 2s infinite linear;
   animation-play-state: paused;
 }
@@ -100,7 +105,11 @@ div, button, img{
   z-index: 1;
 }
 
-.mario.jump{
+/* .mario.jump{
+  animation: mario-animation 900ms linear;
+} */
+
+.mario.animation{
   animation: mario-animation 900ms linear;
 }
 
