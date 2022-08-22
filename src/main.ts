@@ -1,11 +1,11 @@
-import { Clouds } from './clouds';
-import { Game } from './game';
-import { Menu } from './menu';
-import { Mario } from './mario';
-import { Pipe } from './pipe';
-import { Animation } from './animation';
-import { TimerInterval, TimerTimeout } from './timer';
-import { MarioJumpListener } from './listeners';
+// import { Clouds } from './classes/clouds';
+import { Game } from './classes/game';
+import { Menu } from './classes/menu';
+import { Mario } from './classes/mario';
+import { Pipe } from './classes/pipe';
+import { Animation } from './classes/animation';
+import { TimerInterval, TimerTimeout } from './classes/timer';
+// import { MarioJumpListener } from './listeners';
 
 // Animation Class Controller
 const animation = new Animation();

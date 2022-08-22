@@ -1,5 +1,5 @@
-import { AnimationProtocol } from './interfaces/animation-protocol';
-import { PipeProtocol } from './interfaces/pipe-protocol';
+import { AnimationProtocol } from '../interfaces/animation-protocol';
+import { PipeProtocol } from '../interfaces/pipe-protocol';
 
 export class Pipe implements PipeProtocol {
   constructor(

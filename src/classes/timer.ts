@@ -1,4 +1,4 @@
-import { TimerProtocol } from './interfaces/timer-protocol';
+import { TimerProtocol } from '../interfaces/timer-protocol';
 
 export class TimerInterval implements TimerProtocol {
   private _timer: NodeJS.Timer | null = null;

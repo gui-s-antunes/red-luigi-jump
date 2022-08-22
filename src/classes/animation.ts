@@ -1,4 +1,4 @@
-import { AnimationProtocol } from './interfaces/animation-protocol';
+import { AnimationProtocol } from '../interfaces/animation-protocol';
 
 export class Animation implements AnimationProtocol {
   removeAnimationProperty(sprite: HTMLImageElement): void {

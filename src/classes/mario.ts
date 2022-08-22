@@ -1,6 +1,6 @@
-import { AnimationProtocol } from './interfaces/animation-protocol';
-import { MarioProtocol } from './interfaces/mario-protocol';
-import { TimerProtocol } from './interfaces/timer-protocol';
+import { AnimationProtocol } from '../interfaces/animation-protocol';
+import { MarioProtocol } from '../interfaces/mario-protocol';
+import { TimerProtocol } from '../interfaces/timer-protocol';
 
 export class Mario implements MarioProtocol {
   constructor(

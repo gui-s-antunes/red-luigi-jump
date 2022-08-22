@@ -1,8 +1,8 @@
-import { GameProtocol } from './interfaces/game-protocol';
-import { MarioProtocol } from './interfaces/mario-protocol';
-import { MenuProtocol } from './interfaces/menu-protocol';
-import { PipeProtocol } from './interfaces/pipe-protocol';
-import { TimerProtocol } from './interfaces/timer-protocol';
+import { GameProtocol } from '../interfaces/game-protocol';
+import { MarioProtocol } from '../interfaces/mario-protocol';
+import { MenuProtocol } from '../interfaces/menu-protocol';
+import { PipeProtocol } from '../interfaces/pipe-protocol';
+import { TimerProtocol } from '../interfaces/timer-protocol';
 
 export class Game implements GameProtocol {
   private _topScore: number;
