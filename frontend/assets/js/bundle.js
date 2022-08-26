@@ -168,6 +168,7 @@ class Mario {
             return;
         if (this.marioContainsJump())
             return;
+        console.log('jumpcontroller true');
         this.addMarioJump();
     }
     addMarioJump() {
