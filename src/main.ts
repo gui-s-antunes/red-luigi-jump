@@ -7,6 +7,7 @@ import { Animation } from './classes/animation';
 import { TimerInterval, TimerTimeout } from './classes/timer';
 
 import { marioSprite, pipeSprite } from './services/htmlSprites';
+import { scoreGame, scoreP, topScoreP, playButton } from './services/htmlHud';
 // import { MarioJumpListener } from './listeners';
 
 // Animation Class Controller
@@ -32,18 +33,13 @@ const pipe = new Pipe(pipeSprite, animation);
 // const marioListener = new MarioJumpListener(mario);
 
 // Game
-const game = new Game(
-  mario,
-  pipe,
-  document.querySelector('.score') as HTMLParagraphElement,
-  gameTimer,
-);
+const game = new Game(mario, pipe, scoreGame, gameTimer);
 
 // HUD
 const menu = new Menu(
-  document.querySelector('.start') as HTMLButtonElement,
-  document.querySelector('.game-menu__p') as HTMLParagraphElement,
-  document.querySelector('.game-menu__p-top-score') as HTMLParagraphElement,
+  playButton,
+  scoreP,
+  topScoreP,
   game,
   mario,
   pipe,

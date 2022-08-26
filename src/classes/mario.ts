@@ -19,8 +19,6 @@ export class Mario implements MarioProtocol {
     if (event.key !== ' ' && event.key !== 'ArrowUp') return;
     if (this.marioContainsJump()) return;
 
-    console.log('jumpcontroller true');
-
     this.addMarioJump();
   }
 

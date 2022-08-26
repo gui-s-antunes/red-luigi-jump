@@ -168,7 +168,6 @@ class Mario {
             return;
         if (this.marioContainsJump())
             return;
-        console.log('jumpcontroller true');
         this.addMarioJump();
     }
     addMarioJump() {
@@ -345,6 +344,23 @@ exports.TimerTimeout = TimerTimeout;
 
 /***/ }),
 
+/***/ "./src/services/htmlHud.ts":
+/*!*********************************!*\
+  !*** ./src/services/htmlHud.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.topScoreP = exports.scoreP = exports.playButton = exports.scoreGame = void 0;
+exports.scoreGame = document.querySelector('.score');
+exports.playButton = document.querySelector('.start');
+exports.scoreP = document.querySelector('.game-menu__p');
+exports.topScoreP = document.querySelector('.game-menu__p-top-score');
+
+
+/***/ }),
+
 /***/ "./src/services/htmlSprites.ts":
 /*!*************************************!*\
   !*** ./src/services/htmlSprites.ts ***!
@@ -404,14 +420,15 @@ const pipe_1 = __webpack_require__(/*! ./classes/pipe */ "./src/classes/pipe.ts"
 const animation_1 = __webpack_require__(/*! ./classes/animation */ "./src/classes/animation.ts");
 const timer_1 = __webpack_require__(/*! ./classes/timer */ "./src/classes/timer.ts");
 const htmlSprites_1 = __webpack_require__(/*! ./services/htmlSprites */ "./src/services/htmlSprites.ts");
+const htmlHud_1 = __webpack_require__(/*! ./services/htmlHud */ "./src/services/htmlHud.ts");
 const animation = new animation_1.Animation();
 const startGameTimer = new timer_1.TimerTimeout();
 const marioJumpTimer = new timer_1.TimerTimeout();
 const gameTimer = new timer_1.TimerInterval();
 const mario = new mario_1.Mario(htmlSprites_1.marioSprite, animation, marioJumpTimer);
 const pipe = new pipe_1.Pipe(htmlSprites_1.pipeSprite, animation);
-const game = new game_1.Game(mario, pipe, document.querySelector('.score'), gameTimer);
-const menu = new menu_1.Menu(document.querySelector('.start'), document.querySelector('.game-menu__p'), document.querySelector('.game-menu__p-top-score'), game, mario, pipe, startGameTimer);
+const game = new game_1.Game(mario, pipe, htmlHud_1.scoreGame, gameTimer);
+const menu = new menu_1.Menu(htmlHud_1.playButton, htmlHud_1.scoreP, htmlHud_1.topScoreP, game, mario, pipe, startGameTimer);
 menu.setTopScore();
 game.menu = menu;
 
