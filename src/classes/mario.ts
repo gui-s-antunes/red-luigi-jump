@@ -46,7 +46,7 @@ export class Mario implements MarioProtocol {
   }
 
   marioContainsJump(): boolean {
-    return this.marioSprite.classList.contains('jump');
+    return this.marioSprite.classList.contains('animation');
   }
 
   resetMario(): void {
