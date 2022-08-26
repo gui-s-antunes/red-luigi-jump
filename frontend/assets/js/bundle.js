@@ -168,6 +168,7 @@ class Mario {
             return;
         if (this.marioContainsJump())
             return;
+        console.log('jumpcontroller true');
         this.addMarioJump();
     }
     addMarioJump() {
@@ -187,7 +188,7 @@ class Mario {
         this._marioSprite.src = imageSrc;
     }
     marioContainsJump() {
-        return this.marioSprite.classList.contains('jump');
+        return this.marioSprite.classList.contains('animation');
     }
     resetMario() {
         this.removeMarioJump();
@@ -342,6 +343,22 @@ class TimerTimeout {
 exports.TimerTimeout = TimerTimeout;
 
 
+/***/ }),
+
+/***/ "./src/services/htmlSprites.ts":
+/*!*************************************!*\
+  !*** ./src/services/htmlSprites.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.cloudsSprite = exports.pipeSprite = exports.marioSprite = void 0;
+exports.marioSprite = document.querySelector('.mario');
+exports.pipeSprite = document.querySelector('.pipe');
+exports.cloudsSprite = document.querySelector('.clouds');
+
+
 /***/ })
 
 /******/ 	});
@@ -386,12 +403,13 @@ const mario_1 = __webpack_require__(/*! ./classes/mario */ "./src/classes/mario.
 const pipe_1 = __webpack_require__(/*! ./classes/pipe */ "./src/classes/pipe.ts");
 const animation_1 = __webpack_require__(/*! ./classes/animation */ "./src/classes/animation.ts");
 const timer_1 = __webpack_require__(/*! ./classes/timer */ "./src/classes/timer.ts");
+const htmlSprites_1 = __webpack_require__(/*! ./services/htmlSprites */ "./src/services/htmlSprites.ts");
 const animation = new animation_1.Animation();
 const startGameTimer = new timer_1.TimerTimeout();
 const marioJumpTimer = new timer_1.TimerTimeout();
 const gameTimer = new timer_1.TimerInterval();
-const mario = new mario_1.Mario(document.querySelector('.mario'), animation, marioJumpTimer);
-const pipe = new pipe_1.Pipe(document.querySelector('.pipe'), animation);
+const mario = new mario_1.Mario(htmlSprites_1.marioSprite, animation, marioJumpTimer);
+const pipe = new pipe_1.Pipe(htmlSprites_1.pipeSprite, animation);
 const game = new game_1.Game(mario, pipe, document.querySelector('.score'), gameTimer);
 const menu = new menu_1.Menu(document.querySelector('.start'), document.querySelector('.game-menu__p'), document.querySelector('.game-menu__p-top-score'), game, mario, pipe, startGameTimer);
 menu.setTopScore();

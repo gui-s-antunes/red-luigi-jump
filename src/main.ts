@@ -5,6 +5,8 @@ import { Mario } from './classes/mario';
 import { Pipe } from './classes/pipe';
 import { Animation } from './classes/animation';
 import { TimerInterval, TimerTimeout } from './classes/timer';
+
+import { marioSprite, pipeSprite } from './services/htmlSprites';
 // import { MarioJumpListener } from './listeners';
 
 // Animation Class Controller
@@ -17,19 +19,12 @@ const marioJumpTimer = new TimerTimeout();
 const gameTimer = new TimerInterval();
 
 // Sprites
-const mario = new Mario(
-  document.querySelector('.mario') as HTMLImageElement,
-  animation,
-  marioJumpTimer,
-);
+const mario = new Mario(marioSprite, animation, marioJumpTimer);
 
-const pipe = new Pipe(
-  document.querySelector('.pipe') as HTMLImageElement,
-  animation,
-);
+const pipe = new Pipe(pipeSprite, animation);
 
 // const clouds = new Clouds(
-//   document.querySelector('.clouds') as HTMLImageElement,
+//   cloudsSprite,
 // );
 
 // Listeners
