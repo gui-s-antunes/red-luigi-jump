@@ -78,6 +78,11 @@ export class Game implements GameProtocol {
     return this.points > this.topScore;
   }
 
+  resetSpriteStatement(): void {
+    this.pipe.resetPipe();
+    this.mario.resetMario();
+  }
+
   startGame(): void {
     this.showGameScore();
     this.pipe.addPropertyAnimation();

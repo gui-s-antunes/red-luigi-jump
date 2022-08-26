@@ -36,15 +36,7 @@ const pipe = new Pipe(pipeSprite, animation);
 const game = new Game(mario, pipe, scoreGame, gameTimer);
 
 // HUD
-const menu = new Menu(
-  playButton,
-  scoreP,
-  topScoreP,
-  game,
-  mario,
-  pipe,
-  startGameTimer,
-);
+const menu = new Menu(playButton, scoreP, topScoreP, game, startGameTimer);
 menu.setTopScore();
 
 game.menu = menu;

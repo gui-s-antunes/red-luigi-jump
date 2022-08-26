@@ -98,6 +98,10 @@ class Game {
     isNewScoreBetter() {
         return this.points > this.topScore;
     }
+    resetSpriteStatement() {
+        this.pipe.resetPipe();
+        this.mario.resetMario();
+    }
     startGame() {
         this.showGameScore();
         this.pipe.addPropertyAnimation();
@@ -216,13 +220,11 @@ exports.Mario = Mario;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Menu = void 0;
 class Menu {
-    constructor(_playButton, _scoreP, _topScoreP, game, mario, pipe, startTimer) {
+    constructor(_playButton, _scoreP, _topScoreP, game, startTimer) {
         this._playButton = _playButton;
         this._scoreP = _scoreP;
         this._topScoreP = _topScoreP;
         this.game = game;
-        this.mario = mario;
-        this.pipe = pipe;
         this.startTimer = startTimer;
         this._playButtonDiv = this._playButton.parentElement;
         this._playButton.addEventListener('click', this.playButtonPressed.bind(this));
@@ -237,9 +239,8 @@ class Menu {
         this._scoreP.style.display = 'block';
     }
     playButtonPressed() {
-        this.pipe.resetPipe();
-        this.mario.resetMario();
         this.hiddenMenu();
+        this.game.resetSpriteStatement();
         this.startTimer.setTimer(this.game, 'startGame', 10);
     }
     gameFinished() {
@@ -428,7 +429,7 @@ const gameTimer = new timer_1.TimerInterval();
 const mario = new mario_1.Mario(htmlSprites_1.marioSprite, animation, marioJumpTimer);
 const pipe = new pipe_1.Pipe(htmlSprites_1.pipeSprite, animation);
 const game = new game_1.Game(mario, pipe, htmlHud_1.scoreGame, gameTimer);
-const menu = new menu_1.Menu(htmlHud_1.playButton, htmlHud_1.scoreP, htmlHud_1.topScoreP, game, mario, pipe, startGameTimer);
+const menu = new menu_1.Menu(htmlHud_1.playButton, htmlHud_1.scoreP, htmlHud_1.topScoreP, game, startGameTimer);
 menu.setTopScore();
 game.menu = menu;
 

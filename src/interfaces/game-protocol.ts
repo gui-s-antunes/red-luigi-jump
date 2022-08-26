@@ -22,6 +22,8 @@ export interface GameProtocol {
 
   isNewScoreBetter(): boolean;
 
+  resetSpriteStatement(): void;
+
   startGame(): void;
 
   stopGame(): void;
